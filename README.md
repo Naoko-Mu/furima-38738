@@ -58,7 +58,7 @@
 | state_id       | integer    | null: false                    |
 | city           | string     | null: false                    |
 | street_address | string     | null: false                    |
-| apartment_name | string     |                                |
+| building_name  | string     |                                |
 | phone_number   | string     | null: false                    |
 | buyer          | references | null: false, foreign_key: true |
 
