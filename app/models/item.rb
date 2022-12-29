@@ -5,6 +5,7 @@ belongs_to :category
 belongs_to :conditin
 belongs_to :shipping_cost
 belongs_to :state
+belongs_to :date_of_shipment
 
 validates :image,         presence: true
 validates :item_name, presence: true
