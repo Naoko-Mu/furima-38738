@@ -4,6 +4,7 @@ class Item < ApplicationRecord
 belongs_to :category
 belongs_to :conditin
 belongs_to :shipping_cost
+belongs_to :state
 
 validates :image,         presence: true
 validates :item_name, presence: true
