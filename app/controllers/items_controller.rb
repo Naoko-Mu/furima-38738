@@ -35,9 +35,11 @@ before_action :move_to_index, except: [:index, :show]
 
   def update
     @item = Item.find(params[:id])
-   @item.update(item_params)
-   render :show
-
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
+    end
   end
 
   private
@@ -52,5 +54,5 @@ before_action :move_to_index, except: [:index, :show]
       redirect_to action: :index
     end
   end
-  
+
 end
