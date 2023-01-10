@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
+  before_action :set_item
 
   def index
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new
   end
 
@@ -16,6 +16,12 @@ class OrdersController < ApplicationController
   end
 
   private
+private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
 
   def order_params
     params.require(:order_address).permit(:zip_code, :state_id, :city, :street_address, :building_name, :phone_number, :user_id, :order_id, :item_id).merge(user_id: current_user.id)
