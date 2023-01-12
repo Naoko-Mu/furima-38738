@@ -1,8 +1,7 @@
 const pay = () => {
-  Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY);
      //環境変数をもとに公開鍵を復号
-  const payjp = Payjp(ENV["PAYJP_PUBLIC_KEY"]);
-  //elementsインスタンスを生成
+  const payjp = Payjp(process.env.PAYJP_PUBLIC_KEY);
+    //elementsインスタンスを生成
   const elements = payjp.elements();
   //入力欄ごとにelementインスタンスを生成
   const numberElement = elements.create('cardNumber')
