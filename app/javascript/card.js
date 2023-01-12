@@ -1,19 +1,13 @@
 const pay = () => {
-     //環境変数をもとに公開鍵を復号
   const payjp = Payjp(process.env.PAYJP_PUBLIC_KEY);
-    //elementsインスタンスを生成
   const elements = payjp.elements();
-  //入力欄ごとにelementインスタンスを生成
   const numberElement = elements.create('cardNumber')
   const cvcElement = elements.create('cardCvc')
   const expiryElement = elements.create('cardExpiry')
-  //入力欄をDOM上に表示
   numberElement.mount('#number')
   cvcElement.mount('#cvc')
   expiryElement.mount('#exp-date')
-  //フォームの要素を取得
   const form = document.getElementById("charge-form");
-  //PAY.JPと通信が成功した場合のみトークンをフォームに埋め込む
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     payjp.createToken(expiryElement).then((response) => {
