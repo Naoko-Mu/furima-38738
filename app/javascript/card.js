@@ -1,35 +1,32 @@
 const pay = () => {
-    Payjp.setPublicKey("");
-const submit = document.getElementById("button");
-  submit.addEventListener("click", (e) => {
+     //環境変数をもとに公開鍵を復号
+  const payjp = Payjp("");
+  //elementsインスタンスを生成
+  const elements = payjp.elements();
+  //入力欄ごとにelementインスタンスを生成
+  const numberElement = elements.create('cardNumber')
+  const cvcElement = elements.create('cardCvc')
+  const expiryElement = elements.create('cardExpiry')
+  //入力欄をDOM上に表示
+  numberElement.mount('#number')
+  cvcElement.mount('#cvc')
+  expiryElement.mount('#exp-date')
+  //フォームの要素を取得
+  const form = document.getElementById("charge-form");
+  //PAY.JPと通信が成功した場合のみトークンをフォームに埋め込む
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
-const formResult = document.getElementById("charge-form");
-    const formData = new FormData(formResult);
-
-    const card = {
-      number: formData.get("order[number]"),
-      cvc: formData.get("order[cvc]"),
-      exp_month: formData.get("order[exp_month]"),
-      exp_year: `20${formData.get("order[exp_year]")}`,
-    };
-      Payjp.createToken(card, (status, response) => {
-      if (status == 200) {
+    payjp.createToken(expiryElement).then((response) => {
+      if (response.error) {
+      } else {
         const token = response.id;
-const renderDom = document.getElementById("charge-form");
+        const renderDom = document.getElementById("charge-form");
         const tokenObj = `<input value=${token} name='token' type="hidden"> `;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
-          debugger;
       }
-           document.getElementById("order_number").removeAttribute("name");
-      document.getElementById("order_cvc").removeAttribute("name");
-      document.getElementById("order_exp_month").removeAttribute("name");
-          document.getElementById("order_exp_year").removeAttribute("name");
-
-                document.getElementById("charge-form").submit();
-
+      document.getElementById("charge-form").submit();
     });
   });
-
 };
 
 window.addEventListener("load", pay);

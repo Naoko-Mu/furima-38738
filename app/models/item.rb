@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   belongs_to :date_of_shipment
   has_one :order
 
-# with_optionsは複数のバリデーションをグループ化し、共通の制限をかけるためのメソッドです。最後に修正する
+  # with_optionsは複数のバリデーションをグループ化し、共通の制限をかけるためのメソッドです。最後に修正する
   validates :image, presence: true
   validates :item_name, presence: true
   validates :price, presence: true,
