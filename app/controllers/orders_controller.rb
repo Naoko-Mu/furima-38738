@@ -2,7 +2,11 @@ class OrdersController < ApplicationController
   before_action :set_item
 
   def index
-    @order_address = OrderAddress.new
+    if current_user.id == @item.user_id || Order.exists?(item_id: @item.id)
+      redirect_to root_path
+    else
+      @order_address = OrderAddress.new
+    end
   end
 
   def create
